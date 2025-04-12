@@ -32,28 +32,28 @@ def preprocess_text(text):
     words = [word for word in words if word not in stop_words]
     return ' '.join(words)
 
-def extract_text_from_txt(file_path):
+def extract_text_from_txt(file_path, len_doc):
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read(500)  # 只读取前500个字符
+            content = f.read(len_doc)  # 只读取前500个字符
         return content
     except Exception as e:
         print(f"读取 txt 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_text_from_docx(file_path):
+def extract_text_from_docx(file_path, len_doc):
     try:
         doc = Document(file_path)
         full_text = []
         for para in doc.paragraphs:
             full_text.append(para.text)
-        content = "\n".join(full_text)[:500]  # 只取前500个字符
+        content = "\n".join(full_text)[:len_doc]  # 只取前500个字符
         return content
     except Exception as e:
         print(f"读取 docx 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_text_from_pptx(file_path):
+def extract_text_from_pptx(file_path, len_doc):
     try:
         prs = Presentation(file_path)
         full_text = []
@@ -61,25 +61,25 @@ def extract_text_from_pptx(file_path):
             for shape in slide.shapes:
                 if hasattr(shape, "text"):
                     full_text.append(shape.text)
-        content = "\n".join(full_text)[:500]
+        content = "\n".join(full_text)[:len_doc]
         return content
     except Exception as e:
         print(f"读取 pptx 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_text_from_xlsx(file_path):
+def extract_text_from_xlsx(file_path, len_doc):
     try:
         df_dict = pd.read_excel(file_path, sheet_name=None)
         texts = []
         for sheet_name, df in df_dict.items():
             texts.append(df.to_string())
-        content = "\n".join(texts)[:500]
+        content = "\n".join(texts)[:len_doc]
         return content
     except Exception as e:
         print(f"读取 xlsx 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_features_from_file(filepath):
+def extract_features_from_file(filepath, len_doc):
     """
     根据文件后缀提取文本特征：
       - 对于支持的文本型文件（txt, docx, pptx, xls/xlsx），读取内容的前500个字符；
@@ -88,17 +88,17 @@ def extract_features_from_file(filepath):
     """
     ext = os.path.splitext(filepath)[1].lower()
     if ext == '.txt':
-        content = extract_text_from_txt(filepath)
+        content = extract_text_from_txt(filepath, len_doc)
     elif ext == '.docx':
-        content = extract_text_from_docx(filepath)
+        content = extract_text_from_docx(filepath, len_doc)
     elif ext == '.pptx':
-        content = extract_text_from_pptx(filepath)
+        content = extract_text_from_pptx(filepath, len_doc)
     elif ext in ['.xls', '.xlsx']:
-        content = extract_text_from_xlsx(filepath)
+        content = extract_text_from_xlsx(filepath, len_doc)
     else:
         content = os.path.basename(filepath)
     # 仅保留前500个字符（如果内容较长）
-    content = content[:500]
+    content = content[:len_doc]
     return preprocess_text(content)
 
 def get_all_file_paths(directories):
@@ -120,7 +120,7 @@ def get_all_file_paths(directories):
                         file_paths.append(sub_path)
     return file_paths
 
-def collect_data_and_features(directories, save_file_str):
+def collect_data_and_features(directories, save_file_str, len_doc):
     """
     提取指定目录下所有文件的文本特征：
       - 对于支持的文本型文件（txt, docx, pptx, xls/xlsx），只读取前500个字符；
@@ -130,7 +130,7 @@ def collect_data_and_features(directories, save_file_str):
     file_paths = get_all_file_paths(directories)
     texts = []
     for file_path in file_paths:
-        text = extract_features_from_file(file_path)
+        text = extract_features_from_file(file_path, len_doc)
         texts.append(text)
     with open(save_file_str, 'wb') as f:
         pickle.dump((file_paths, texts), f)
@@ -145,4 +145,4 @@ directories = [
 ]
 
 save_file_str = 'file_paths_and_texts.pkl'
-collect_data_and_features(directories, save_file_str)
+collect_data_and_features(directories, save_file_str, 50)

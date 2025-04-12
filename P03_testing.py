@@ -35,26 +35,26 @@ def preprocess_text(text):
     words = [word for word in words if word not in stop_words]
     return ' '.join(words)
 
-def extract_text_from_txt(file_path):
+def extract_text_from_txt(file_path, len_doc):
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read(500)  # 只读取前500个字符
+            content = f.read(len_doc)  # 只读取前500个字符
         return content
     except Exception as e:
         print(f"读取 txt 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_text_from_docx(file_path):
+def extract_text_from_docx(file_path, len_doc):
     try:
         doc = Document(file_path)
         full_text = [para.text for para in doc.paragraphs]
-        content = "\n".join(full_text)[:500]
+        content = "\n".join(full_text)[:len_doc]
         return content
     except Exception as e:
         print(f"读取 docx 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_text_from_pptx(file_path):
+def extract_text_from_pptx(file_path, len_doc):
     try:
         prs = Presentation(file_path)
         full_text = []
@@ -62,25 +62,25 @@ def extract_text_from_pptx(file_path):
             for shape in slide.shapes:
                 if hasattr(shape, "text") and shape.text:
                     full_text.append(shape.text)
-        content = "\n".join(full_text)[:500]
+        content = "\n".join(full_text)[:len_doc]
         return content
     except Exception as e:
         print(f"读取 pptx 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_text_from_excel(file_path):
+def extract_text_from_excel(file_path, len_doc):
     try:
         df_dict = pd.read_excel(file_path, sheet_name=None)
         texts = []
         for sheet_name, df in df_dict.items():
             texts.append(df.to_string())
-        content = "\n".join(texts)[:500]
+        content = "\n".join(texts)[:len_doc]
         return content
     except Exception as e:
         print(f"读取 Excel 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_text_from_zip(file_path):
+def extract_text_from_zip(file_path, len_doc):
     """
     对于 ZIP 文件，读取压缩包内所有文件的名称，
     预处理后合并成一个字符串，并只保留前500个字符。
@@ -89,12 +89,12 @@ def extract_text_from_zip(file_path):
         with zipfile.ZipFile(file_path, 'r') as zip_ref:
             names = zip_ref.namelist()
         processed_names = " ".join(preprocess_text(name) for name in names)
-        return processed_names[:500]
+        return processed_names[:len_doc]
     except Exception as e:
         print(f"处理 zip 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_text_from_rar(file_path):
+def extract_text_from_rar(file_path, len_doc):
     """
     对于 RAR 文件，读取压缩包内所有文件的名称，
     预处理后合并成一个字符串，并只保留前500个字符。
@@ -103,12 +103,12 @@ def extract_text_from_rar(file_path):
         with rarfile.RarFile(file_path) as rar_ref:
             names = rar_ref.namelist()
         processed_names = " ".join(preprocess_text(name) for name in names)
-        return processed_names[:500]
+        return processed_names[:len_doc]
     except Exception as e:
         print(f"处理 rar 文件 {file_path} 时出错: {e}")
         return ""
 
-def extract_features_from_file(filepath):
+def extract_features_from_file(filepath, len_doc):
     """
     根据文件后缀提取文本特征：
       - 对于支持的文本型文件（.txt, .docx, .pptx, .xls, .xlsx），读取内容的前500个字符；
@@ -118,23 +118,23 @@ def extract_features_from_file(filepath):
     """
     ext = os.path.splitext(filepath)[1].lower()
     if ext == ".txt":
-        content = extract_text_from_txt(filepath)
+        content = extract_text_from_txt(filepath, len_doc)
     elif ext == ".docx":
-        content = extract_text_from_docx(filepath)
+        content = extract_text_from_docx(filepath, len_doc)
     elif ext == ".pptx":
-        content = extract_text_from_pptx(filepath)
+        content = extract_text_from_pptx(filepath, len_doc)
     elif ext in [".xls", ".xlsx"]:
-        content = extract_text_from_excel(filepath)
+        content = extract_text_from_excel(filepath, len_doc)
     elif ext == ".zip":
-        content = extract_text_from_zip(filepath)
+        content = extract_text_from_zip(filepath, len_doc)
     elif ext == ".rar":
-        content = extract_text_from_rar(filepath)
+        content = extract_text_from_rar(filepath, len_doc)
     else:
         content = ""
     # 提取并预处理文件名
     file_name = os.path.basename(filepath).lower().translate(str.maketrans('', '', string.punctuation))
     combined = file_name + " " + preprocess_text(content)
-    return combined[:500]
+    return combined[:len_doc]
 
 def get_all_file_paths(directory):
     """
@@ -147,14 +147,14 @@ def get_all_file_paths(directory):
             file_paths.append(os.path.join(root, name))
     return file_paths
 
-def classify_files(source_directory, destination_root):
+def classify_files(source_directory, destination_root, len_doc):
     """
     对 source_directory 内的所有文件进行预测分类，
     特征由文件名和（文本型文件的前500字符/压缩包内文件名称）组成，
     然后将文件移动到 destination_root 下对应类别的文件夹中。
     """
     file_paths = get_all_file_paths(source_directory)
-    texts = [extract_features_from_file(fp) for fp in file_paths]
+    texts = [extract_features_from_file(fp, len_doc) for fp in file_paths]
 
     # 加载训练好的模型和 TF-IDF 向量化器
     with open('rf_model.pkl', 'rb') as model_file:
@@ -201,10 +201,10 @@ def classify_files(source_directory, destination_root):
 
 if __name__ == "__main__":
     # 指定待分类的文件夹（请根据实际情况修改）
-    source_directory = r"./FileList"  # 示例：文件列表所在目录
+    source_directory = r"C:\Users\xijia\Desktop\ToDoList\D20_ToDailyNotice"  # 示例：文件列表所在目录
     # 目标根目录为当前目录下的 "DoneFileArchived" 文件夹
     destination_root = os.path.join(os.getcwd(), "DoneFileArchived")
     os.makedirs(destination_root, exist_ok=True)
 
-    classify_files(source_directory, destination_root)
+    classify_files(source_directory, destination_root, 50)
     print("所有文件已根据预测分类并移动到目标文件夹中。")
