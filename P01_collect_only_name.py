@@ -145,4 +145,4 @@ directories = [
 ]
 
 save_file_str = 'file_paths_and_texts.pkl'
-collect_data_and_features(directories, save_file_str, 50)
+collect_data_and_features(directories, save_file_str, 10)
