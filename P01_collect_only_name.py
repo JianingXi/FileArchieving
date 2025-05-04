@@ -138,11 +138,11 @@ def collect_data_and_features(directories, save_file_str, len_doc):
 
 # 示例使用：请根据实际情况修改目录路径
 directories = [
-    r'D:\Alpha\M02广医事务性工作',
     r'D:\Alpha\StoreLatestYears\Store2022\M02广医事务性工作',
     r'D:\Alpha\StoreLatestYears\Store2023\M02广医事务性工作',
-    r'D:\Alpha\StoreLatestYears\Store2024\M02广医事务性工作'
+    r'D:\Alpha\StoreLatestYears\Store2024\M02广医事务性工作',
+    r'D:\Alpha\StoreLatestYears\Store2025\M02广医事务性工作'
 ]
 
 save_file_str = 'file_paths_and_texts.pkl'
-collect_data_and_features(directories, save_file_str, 10)
+collect_data_and_features(directories, save_file_str, 100)
