@@ -145,7 +145,7 @@ def classify_files(src_dir, dst_root, L, thresh=0.5):
             shutil.move(fp, dst)
 
 if __name__ == '__main__':
-    src = r"C:\Users\xijia\Desktop\ToDoList\D20_ToDailyNotice"
+    src = r"C:\MyDocument\ToDoList\D20_ToDailyNotice"
     dst = os.path.join(os.getcwd(), "DoneFileArchived")
     os.makedirs(dst, exist_ok=True)
     classify_files(src, dst, L=50, thresh=0.5)
