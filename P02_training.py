@@ -64,7 +64,7 @@ base_rf = RandomForestClassifier(
 )
 model = MultiOutputClassifier(base_rf, n_jobs=-1)
 
-# 6. 5 折交叉验证评估
+# 6. 五折交叉验证评估
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 accs, f1s = [], []
 for tr_idx, te_idx in kf.split(X):

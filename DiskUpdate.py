@@ -7,11 +7,11 @@ from rename_space import rename_files_and_folders
 disk_char = "D:"
 
 
-
+"""
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform'
 rename_date(basedir)
 rename_files_and_folders(basedir)
-
+"""
 
 basedir = r'C:\MyDocument\ToDoList\D20_Done'
 rename_date(basedir)

@@ -15,10 +15,12 @@ from sentence_transformers import SentenceTransformer
 sys.setrecursionlimit(2000)
 
 # 下载 NLTK 停用词
+"""
 try:
     nltk.download('stopwords', quiet=True)
 except:
     pass
+"""
 from nltk.corpus import stopwords
 
 def preprocess_text(text):

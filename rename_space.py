@@ -4,27 +4,18 @@ import re
 def sanitize_name(name, is_file=False):
     """
     清洗路径名：去除首尾空格，合并空格，将空格和短横线转为下划线。
-    如果是文件名，保留最后一个点，其他点用“点”字代替。
+    文件和文件夹的点不做任何处理，直接保留。
     """
+    # 去除首尾空格并合并空格
     name = re.sub(r'\s+', ' ', name.strip())
+    # 将空格和短横线替换为下划线
     name = re.sub(r'[\s-]+', '_', name)
-
-    if is_file:
-        # 特殊处理：仅保留最后一个点作为扩展名
-        if '.' in name:
-            parts = name.split('.')
-            filename_core = '点'.join(parts[:-1])
-            extension = parts[-1]
-            return f"{filename_core}.{extension}"
-    else:
-        # 文件夹处理：所有点替换为“点”
-        name = name.replace('.', '点')
 
     return name
 
 def rename_path(path):
     """
-    对路径中的每一部分进行重命名，处理空格、短横线、多个点的情况。
+    对路径中的每一部分进行重命名，处理空格、短横线情况。
     """
     path_parts = path.split(os.sep)
 
@@ -33,10 +24,7 @@ def rename_path(path):
     new_parts = []
 
     for i, part in enumerate(path_parts):
-        if i == len(path_parts) - 1:  # 最后一段
-            new_parts.append(sanitize_name(part, is_file=is_file))
-        else:
-            new_parts.append(sanitize_name(part, is_file=False))
+        new_parts.append(sanitize_name(part, is_file=is_file))
 
     new_path = os.sep.join(new_parts)
 
