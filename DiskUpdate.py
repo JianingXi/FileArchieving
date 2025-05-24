@@ -80,7 +80,7 @@ rename_files_and_folders(basedir)
 
 
 # 硬盘位置确定与硬盘快捷方式更新
-update_shortcut_folders(disk_char)
+#update_shortcut_folders(disk_char)
 
 # 商业报告参考模板备份
 #update_commercial2rar_files(disk_char)
