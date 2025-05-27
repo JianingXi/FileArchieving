@@ -37,8 +37,13 @@ def process_directory(directory, old_str, new_str):
 
 
 # 直接调用（示例）
-target_dir = r"C:\MyPython\ChaoxingUpload"  # 替换为目标路径
-old_string = "130XXXXXXXX#"  # 要替换的旧字符串
+target_dir = r"C:\Users\Administrator\Documents\GitHub\ChaoxingUpload"  # 替换为目标路径
+old_string = "#"  # 要替换的旧字符串
+new_string = "Password****"  # 新字符串
+
+process_directory(target_dir, old_string, new_string)
+
+old_string = ""  # 要替换的旧字符串
 new_string = "PhoneNumber"  # 新字符串
 
 process_directory(target_dir, old_string, new_string)
