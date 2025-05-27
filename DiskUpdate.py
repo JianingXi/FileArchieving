@@ -64,8 +64,6 @@ basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\林煌'
 rename_date(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\张姚琪'
 rename_date(basedir)
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\李丹'
-rename_date(basedir)
 
 """
 basedir = r''
