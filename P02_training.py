@@ -33,7 +33,7 @@ TARGET_CATEGORIES = [
 ]
 
 # 1. 加载数据
-with open('file_paths_texts_and_labels.pkl', 'rb') as f:
+with open('./file_embed_pkl_history/file_paths_texts_and_labels_final.pkl', 'rb') as f:
     file_paths, texts, multi_labels = pickle.load(f)
 
 # 2. 规范化 multi_labels：确保每个样本标签都只保留在 TARGET_CATEGORIES 里
