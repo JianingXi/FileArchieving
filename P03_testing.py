@@ -131,7 +131,7 @@ def classify_files(src_dir, dst_root, L, thresh=0.5):
     P = np.vstack([p[:, 1] for p in probas]).T
 
     # 创建分类目录
-    for lbl in labels + ['Uncategorized']:
+    for lbl in labels:
         os.makedirs(os.path.join(dst_root, lbl), exist_ok=True)
 
     # 移动文件
