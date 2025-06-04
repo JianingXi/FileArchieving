@@ -1,6 +1,7 @@
 from DiskUpdateDict.FileNameAsDate import rename_date
 from DiskUpdateDict.UpdateShortcut import update_shortcut_folders, check_and_delete_if_empty
 from DiskUpdateDict.DiskUpdateFunc import compress_and_remove_folders, update_commercial2rar_files
+from DiskUpdateDict.html2pdf import convert_html_files_in_directory
 
 from rename_space import rename_files_and_folders
 
@@ -18,6 +19,7 @@ rename_files_and_folders(basedir)
 
 basedir = r'C:\MyDocument\ToDoList\D20_ToDailyNotice'
 rename_date(basedir)
+convert_html_files_in_directory(basedir)
 compress_and_remove_folders(basedir)
 rename_files_and_folders(basedir)
 
@@ -26,6 +28,7 @@ rename_date(basedir)
 rename_files_and_folders(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_Z_ToEvernote'
 rename_date(basedir)
+convert_html_files_in_directory(basedir)
 rename_files_and_folders(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk'
 rename_date(basedir)
