@@ -1,8 +1,33 @@
-# ----- 硬盘局部区域目录备份 ----- #
-import os
-from datetime import datetime
-import shutil
 
+
+import os
+import shutil
+import zipfile
+from datetime import datetime
+
+# ----- 硬盘局部区域文件夹压缩 ----- #
+
+def compress_and_remove_folders(root_dir):
+    for item in os.listdir(root_dir):
+        item_path = os.path.join(root_dir, item)
+        if os.path.isdir(item_path):
+            zip_path = os.path.join(root_dir, f"{item}.zip")
+            # 创建zip文件
+            with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                for foldername, subfolders, filenames in os.walk(item_path):
+                    for filename in filenames:
+                        file_path = os.path.join(foldername, filename)
+                        # 添加文件到zip，保留相对路径
+                        arcname = os.path.relpath(file_path, start=item_path)
+                        zipf.write(file_path, arcname)
+            # 删除原始文件夹
+            shutil.rmtree(item_path)
+            print(f"✅ 已压缩并删除文件夹：{item_path}")
+
+
+
+
+# ----- 硬盘局部区域目录备份 ----- #
 
 def scan_directory(base_dir, output_file):
     """

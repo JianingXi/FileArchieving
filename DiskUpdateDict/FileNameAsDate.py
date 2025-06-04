@@ -91,7 +91,7 @@ def move_files_with_new_names(src_dir, dst_dir):
         dst_path = ensure_path_length(dst_path)
 
         if src_path != dst_path:
-            print(f"rename {new_filename}")
+            # print(f"rename {new_filename}")
             shutil.move(src_path, dst_path)
 
 
@@ -114,7 +114,7 @@ def move_directories_with_new_names(src_dir, dst_dir):
         dst_path = ensure_path_length(dst_path)
 
         if src_path != dst_path:
-            print(f"rename directory {new_dirname}")
+            # print(f"rename directory {new_dirname}")
             shutil.move(src_path, dst_path)
 
 
@@ -127,7 +127,7 @@ def rename_date(basedir):
     move_files_with_new_names(basedir, temp_dir)
     move_directories_with_new_names(basedir, temp_dir)
 
-    print('     ----     ')
+    # print('     ----     ')
 
     move_files_with_new_names(temp_dir, basedir)
     move_directories_with_new_names(temp_dir, basedir)

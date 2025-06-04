@@ -97,6 +97,35 @@ def move_shortcuts_into_dirs(shortcut_source, target_folder):
                 print(f"未找到匹配的二级目录，快捷方式 {file} 未移动。")
 
 
+def check_and_delete_if_empty(directory):
+    """检查文件夹是否为空，为空则删除"""
+    try:
+        # 检查文件夹是否存在
+        if not os.path.exists(directory):
+            return False
+
+        # 检查是否是文件夹
+        if not os.path.isdir(directory):
+            return False
+
+        # 检查是否为空
+        if not os.listdir(directory):  # 空文件夹
+            try:
+                os.rmdir(directory)  # 删除空文件夹
+                return True
+            except Exception as e:
+                print(f"删除文件夹失败: {e}")
+                return False
+        else:
+            print(f"文件夹 {directory} 不为空")
+            return False
+
+    except Exception as e:
+        print(f"操作出错: {e}")
+        return False
+
+
+# 使用示例
 def update_shortcut_folders(disk_char: str):
     # disk_char = "D:"
 
@@ -107,14 +136,27 @@ def update_shortcut_folders(disk_char: str):
 
     # 读取所有的二级目录并创建为快捷方式
     source_dir = r"D:\Alpha\StoreLatestYears"
-    shortcut_dir = r"D:\temp"
+    shortcut_dir = r"D:\temp_hahahohohehe_ben"
+
+    # 检查文件夹是否存在
+    if not os.path.exists(shortcut_dir):
+        try:
+            # 创建文件夹（包括所有必要的父目录）
+            os.makedirs(shortcut_dir)
+            print(f"文件夹 {shortcut_dir} 已成功创建")
+        except Exception as e:
+            print(f"创建文件夹失败: {e}")
+    else:
+        print(f"文件夹 {shortcut_dir} 已存在")
+
+
     source_dir = source_dir.replace("D:", disk_char)
     shortcut_dir = shortcut_dir.replace("D:", disk_char)
     collect_shortcut(source_dir, shortcut_dir)
 
 
     # 移动所有快捷方式至相应位置
-    shortcut_source = r"D:\temp"
+    shortcut_source = shortcut_dir
     target_folder = r"D:\Alpha"
     shortcut_source = shortcut_source.replace("D:", disk_char)
     target_folder = target_folder.replace("D:", disk_char)
@@ -210,3 +252,4 @@ def update_shortcut_folders(disk_char: str):
         "M02广医事务性工作"
     ]
     create_task_folders(base_directory, folder_names_vec)
+    check_and_delete_if_empty(shortcut_dir)
