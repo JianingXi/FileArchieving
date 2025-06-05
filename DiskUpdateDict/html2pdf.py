@@ -63,53 +63,107 @@ def insert_base_tag(html_path):
     except Exception as e:
         print(f"预处理 {html_path} 时出错: {e}")
 
-import tempfile
-import tempfile
 
-def html_to_pdf(html_path, pdf_path):
+
+
+def html_to_pdf(html_path, pdf_path, debug_on_fail=True):
     """
-    临时处理 HTML 内容：保留图片，移除干扰资源，引入 base 标签，避免资源路径错误。
-    不修改原始 HTML 文件。
+    增强版 HTML 转 PDF 函数：
+    - 清理脚本和样式引用
+    - 插入 <base> 标签
+    - 替换所有非法或不存在的本地图片
+    - 保留失败时 HTML 文件供调试
     """
+    import re
+    import tempfile
+    from pathlib import Path
+
+    def replace_nonexistent_images_with_files_support(content: str, html_path: str) -> str:
+        html_dir = Path(html_path).parent.resolve()
+        html_stem = Path(html_path).stem
+
+        candidate_dirs = [html_dir]
+        for suffix in ['_files', '.files']:
+            candidate_dirs.append(html_dir / f"{html_stem}{suffix}")
+        candidate_dirs += list(html_dir.glob("*_files")) + list(html_dir.glob("*.files"))
+
+        def _replace_img(match):
+            tag = match.group(0)
+            src_match = re.search(r'src="([^"]+)"', tag, re.IGNORECASE)
+            if not src_match:
+                return tag
+            img_src = src_match.group(1).strip()
+            if img_src.startswith(('http://', 'https://', 'data:')):
+                return tag
+            if not img_src.isascii():
+                print(f"[DEBUG] 非 ASCII 图片路径，直接移除: {img_src}")
+                return '<div style="width:120px;height:60px;border:1px dashed red;text-align:center;line-height:60px;">[非法路径]</div>'
+            img_rel_path = Path(img_src)
+            exists = any((cand_dir / img_rel_path).exists() for cand_dir in candidate_dirs)
+            if exists:
+                return tag
+            print(f"[DEBUG] 替换不存在图片: {img_src}")
+            return '<div style="width:120px;height:60px;border:1px dashed gray;text-align:center;line-height:60px;color:#666;">[图片缺失]</div>'
+
+        return re.sub(r'<img[^>]+>', _replace_img, content, flags=re.IGNORECASE)
+
+    content, encoding_used = read_file_with_fallback(html_path)
+    if content is None:
+        return False
+
     try:
-        # 读取内容及编码
-        content, encoding_used = read_file_with_fallback(html_path)
-        if content is None:
-            return False
-
-        # 仅删除容易出错的标签：<script> 和 <link>
-        content = re.sub(r'<script[^>]*?>.*?</script>', '', content, flags=re.IGNORECASE | re.DOTALL)
         content = re.sub(r'<link[^>]*?>', '', content, flags=re.IGNORECASE)
+        content = re.sub(r'<script[^>]*?>.*?</script>', '', content, flags=re.IGNORECASE | re.DOTALL)
+        content = re.sub(r'<iframe[^>]*?>.*?</iframe>', '', content, flags=re.IGNORECASE | re.DOTALL)
+        content = re.sub(r'<object[^>]*?>.*?</object>', '', content, flags=re.IGNORECASE | re.DOTALL)
+        content = re.sub(r'<embed[^>]*?>', '', content, flags=re.IGNORECASE)
+        content = re.sub(r'@font-face\s*{[^}]+}', '', content, flags=re.IGNORECASE | re.DOTALL)
+        content = re.sub(r'url\(["\']?file:[^)]+["\']?\)', 'none', content, flags=re.IGNORECASE)
+        content = replace_nonexistent_images_with_files_support(content, html_path)
 
-        # 插入 <base> 标签指向 HTML 所在文件夹（仅限未存在时）
         head_match = re.search(r'<head.*?>', content, flags=re.IGNORECASE)
-        if head_match and not re.search(r'<base\s', content, flags=re.IGNORECASE):
-            abs_dir = Path(html_path).parent.resolve()
-            base_tag = f'<base href="file:///{abs_dir.as_posix()}/">'
-            content = content[:head_match.end()] + base_tag + content[head_match.end():]
+        if head_match:
+            head_end = head_match.end()
+            if not re.search(r'<base\s', content, flags=re.IGNORECASE):
+                abs_dir = Path(html_path).parent.resolve()
+                base_tag = f'<base href="file:///{abs_dir.as_posix()}/">'
+                content = content[:head_end] + base_tag + content[head_end:]
+            if not re.search(r'<style[^>]*?>.*?</style>', content, flags=re.IGNORECASE | re.DOTALL):
+                default_style = """
+                <style>
+                    body { font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.6; }
+                    h1, h2, h3 { color: #333; }
+                    p { margin-bottom: 10px; }
+                    img { max-width: 100%; height: auto; display: block; margin: 10px auto; }
+                </style>
+                """
+                content = content[:head_end] + default_style + content[head_end:]
 
-        # 写入临时 HTML 文件
         with tempfile.NamedTemporaryFile(delete=False, suffix=".html", mode='w', encoding=encoding_used) as tmp_file:
             tmp_file.write(content)
             tmp_html_path = tmp_file.name
 
-        # 设置 wkhtmltopdf 转换选项
         options = {
             'enable-local-file-access': None,
             'load-error-handling': 'ignore',
             'load-media-error-handling': 'ignore'
         }
 
-        # 转换为 PDF
         pdfkit.from_file(tmp_html_path, pdf_path, configuration=config, options=options)
-
-        # 删除临时文件
         os.remove(tmp_html_path)
         return True
 
     except Exception as e:
         print(f"转换失败 {html_path}: {e}")
+        if debug_on_fail:
+            print(f"[DEBUG] 保留临时 HTML 文件用于调试: {tmp_html_path}")
+        else:
+            try:
+                os.remove(tmp_html_path)
+            except:
+                pass
         return False
+
 
 
 
