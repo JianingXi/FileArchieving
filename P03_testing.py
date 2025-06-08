@@ -152,3 +152,6 @@ if __name__ == '__main__':
     os.makedirs(dst, exist_ok=True)
     classify_files(src, dst, L=50, thresh=0.5)
     print("分类并移动完毕。")
+
+
+

@@ -49,9 +49,15 @@ rename_files_and_folders(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20241219_余宇论文'
 rename_date(basedir)
 rename_files_and_folders(basedir)
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250114_孔元元'
+basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250114_孔元元论文'
 rename_date(basedir)
 rename_files_and_folders(basedir)
+basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250607_梁钲禧论文'
+rename_date(basedir)
+rename_files_and_folders(basedir)
+
+
+
 
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\23级孙波_BME全国赛'
 rename_date(basedir)
@@ -75,6 +81,7 @@ rename_date(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\张姚琪'
 rename_date(basedir)
 
+
 """
 basedir = r'D:\Alpha\J机智\工作业务\Y2025'
 rename_date(basedir)
@@ -86,8 +93,8 @@ cx_folder = r"D:\cxdownload"
 cx_folder = cx_folder.replace("D:", disk_char)
 check_and_delete_if_empty(cx_folder)
 
-"""
 
+"""
 
 
 # 硬盘位置确定与硬盘快捷方式更新
