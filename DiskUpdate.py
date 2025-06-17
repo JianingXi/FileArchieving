@@ -58,14 +58,9 @@ rename_files_and_folders(basedir)
 
 
 
-
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\23级孙波_BME全国赛'
-rename_date(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\23级王玉儿_BME全国赛'
 rename_date(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\23级黄颂_BME全国赛'
-rename_date(basedir)
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\24级李旭翔_BME全国赛'
 rename_date(basedir)
 
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\24硕黄思敏_中国国际'
@@ -77,8 +72,6 @@ rename_date(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\严颖轩'
 rename_date(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\林煌'
-rename_date(basedir)
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\张姚琪'
 rename_date(basedir)
 
 
@@ -92,16 +85,17 @@ rename_files_and_folders(basedir)
 cx_folder = r"D:\cxdownload"
 cx_folder = cx_folder.replace("D:", disk_char)
 check_and_delete_if_empty(cx_folder)
-
-
 """
 
 
+
+
 # 硬盘位置确定与硬盘快捷方式更新
-#update_shortcut_folders(disk_char)
+# update_shortcut_folders(disk_char)
 
 
 # 商业报告参考模板备份
-#update_commercial2rar_files(disk_char)
+# update_commercial2rar_files(disk_char)
 
 print('done!')
+

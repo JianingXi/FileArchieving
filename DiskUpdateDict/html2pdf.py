@@ -66,7 +66,7 @@ def insert_base_tag(html_path):
 
 
 
-def html_to_pdf(html_path, pdf_path, debug_on_fail=True):
+def html_to_pdf(html_path, pdf_path, debug_on_fail=False):
     """
     增强版 HTML 转 PDF 函数：
     - 清理脚本和样式引用
