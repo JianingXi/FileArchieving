@@ -65,7 +65,6 @@ def insert_base_tag(html_path):
 
 
 
-
 def html_to_pdf(html_path, pdf_path, debug_on_fail=False):
     """
     增强版 HTML 转 PDF 函数：
@@ -151,6 +150,25 @@ def html_to_pdf(html_path, pdf_path, debug_on_fail=False):
 
         pdfkit.from_file(tmp_html_path, pdf_path, configuration=config, options=options)
         os.remove(tmp_html_path)
+
+        # ✅ 删除 HTML 原文件
+        if Path(html_path).exists():
+            os.remove(html_path)
+            print(f"✅ 已删除 HTML 文件：{html_path}")
+        else:
+            print(f"[⚠] HTML 文件不存在，跳过删除：{html_path}")
+
+        # ✅ 删除 _files 或 .files 文件夹
+        html_stem = Path(html_path).stem
+        html_dir = Path(html_path).parent
+        for suffix in ['_files', '.files']:
+            folder = html_dir / f"{html_stem}{suffix}"
+            if folder.exists() and folder.is_dir():
+                shutil.rmtree(folder)
+                print(f"✅ 已删除文件夹：{folder}")
+            else:
+                print(f"[⚠] 文件夹不存在，跳过：{folder}")
+
         return True
 
     except Exception as e:
@@ -179,7 +197,7 @@ def convert_html_files_in_directory(directory):
                 print(f"正在处理: {html_path}")
 
 
-                if html_to_pdf(html_path, pdf_path):
+                if html_to_pdf(html_path, pdf_path, False):
                     if os.path.exists(pdf_path):
                         try:
                             # 删除原始 HTML 文件

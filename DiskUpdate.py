@@ -56,37 +56,31 @@ basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250607_梁钲
 rename_date(basedir)
 rename_files_and_folders(basedir)
 
-
-
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\23级王玉儿_BME全国赛'
+basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk\D20250703_智能医学工程新专业写材料'
 rename_date(basedir)
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\23级黄颂_BME全国赛'
-rename_date(basedir)
+rename_files_and_folders(basedir)
 
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\24硕黄思敏_中国国际'
 rename_date(basedir)
 rename_files_and_folders(basedir)
 
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\敖济民'
-rename_date(basedir)
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\严颖轩'
-rename_date(basedir)
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_毕设\林煌'
-rename_date(basedir)
-
-
-"""
-basedir = r'D:\Alpha\J机智\工作业务\Y2025'
+basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20250616_泛雅杯复赛0716'
 rename_date(basedir)
 rename_files_and_folders(basedir)
 
 
+# basedir = r'D:\Alpha\J机智\工作业务\Y2025'
+"""
+rename_date(basedir)
+rename_files_and_folders(basedir)
+"""
+
 # 删除超星学习通的临时文件
-cx_folder = r"D:\cxdownload"
+# cx_folder = r"D:\cxdownload"
+"""
 cx_folder = cx_folder.replace("D:", disk_char)
 check_and_delete_if_empty(cx_folder)
 """
-
 
 
 

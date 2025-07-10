@@ -166,11 +166,14 @@ def combine_yearly_pkl_and_add_labels(years, target_categories, save_folder, fin
 # ========== 主流程 ========== #
 if __name__ == "__main__":
     # 每年的目录
+
     """
         '2022': [r'D:\Alpha\StoreLatestYears\Store2022\M02广医事务性工作'],
         '2023': [r'D:\Alpha\StoreLatestYears\Store2023\M02广医事务性工作'],
         '2024': [r'D:\Alpha\StoreLatestYears\Store2024\M02广医事务性工作'],
     """
+
+
     directories_by_year = {
         '2025': [r'D:\Alpha\StoreLatestYears\Store2025\M02广医事务性工作']
     }
