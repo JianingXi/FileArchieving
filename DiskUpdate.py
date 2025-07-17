@@ -64,9 +64,6 @@ basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\24硕黄思敏_�
 rename_date(basedir)
 rename_files_and_folders(basedir)
 
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20250616_泛雅杯复赛0716'
-rename_date(basedir)
-rename_files_and_folders(basedir)
 
 
 # basedir = r'D:\Alpha\J机智\工作业务\Y2025'
@@ -76,11 +73,10 @@ rename_files_and_folders(basedir)
 """
 
 # 删除超星学习通的临时文件
-# cx_folder = r"D:\cxdownload"
-"""
+cx_folder = r"D:\cxdownload"
 cx_folder = cx_folder.replace("D:", disk_char)
 check_and_delete_if_empty(cx_folder)
-"""
+
 
 
 
@@ -89,7 +85,7 @@ check_and_delete_if_empty(cx_folder)
 
 
 # 商业报告参考模板备份
-# update_commercial2rar_files(disk_char)
+update_commercial2rar_files(disk_char)
 
 print('done!')
 
