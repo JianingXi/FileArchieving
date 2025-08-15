@@ -168,14 +168,15 @@ if __name__ == "__main__":
     # 每年的目录
 
     """
-        '2022': [r'D:\Alpha\StoreLatestYears\Store2022\M02广医事务性工作'],
-        '2023': [r'D:\Alpha\StoreLatestYears\Store2023\M02广医事务性工作'],
-        '2024': [r'D:\Alpha\StoreLatestYears\Store2024\M02广医事务性工作'],
+    
+        '2022': [r'E:\Alpha\StoreLatestYears\Store2022\M02广医事务性工作'],
+        '2023': [r'E:\Alpha\StoreLatestYears\Store2023\M02广医事务性工作'],
+        '2024': [r'E:\Alpha\StoreLatestYears\Store2024\M02广医事务性工作'],
     """
 
 
     directories_by_year = {
-        '2025': [r'D:\Alpha\StoreLatestYears\Store2025\M02广医事务性工作']
+        '2025': [r'E:\Alpha\StoreLatestYears\Store2025\M02广医事务性工作']
     }
 
     # 目标分类列表

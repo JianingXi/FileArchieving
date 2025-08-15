@@ -5,7 +5,7 @@ from DiskUpdateDict.html2pdf import convert_html_files_in_directory
 
 from rename_space import rename_files_and_folders
 
-disk_char = "D:"
+disk_char = "E:"
 
 
 
@@ -37,13 +37,7 @@ rename_files_and_folders(basedir)
 
 
 # Paper
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20241115_冯景辉论文'
-rename_date(basedir)
-rename_files_and_folders(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20241214_黄思敏论文'
-rename_date(basedir)
-rename_files_and_folders(basedir)
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250523_冯敏华论文'
 rename_date(basedir)
 rename_files_and_folders(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20241219_余宇论文'
@@ -53,14 +47,6 @@ basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250114_孔元
 rename_date(basedir)
 rename_files_and_folders(basedir)
 basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250607_梁钲禧论文'
-rename_date(basedir)
-rename_files_and_folders(basedir)
-
-basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk\D20250703_智能医学工程新专业写材料'
-rename_date(basedir)
-rename_files_and_folders(basedir)
-
-basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_比赛\24硕黄思敏_中国国际'
 rename_date(basedir)
 rename_files_and_folders(basedir)
 
@@ -75,7 +61,7 @@ rename_files_and_folders(basedir)
 # 删除超星学习通的临时文件
 cx_folder = r"D:\cxdownload"
 cx_folder = cx_folder.replace("D:", disk_char)
-check_and_delete_if_empty(cx_folder)
+# check_and_delete_if_empty(cx_folder)
 
 
 
@@ -85,7 +71,7 @@ check_and_delete_if_empty(cx_folder)
 
 
 # 商业报告参考模板备份
-update_commercial2rar_files(disk_char)
+# update_commercial2rar_files(disk_char)
 
 print('done!')
 
