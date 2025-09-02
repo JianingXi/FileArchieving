@@ -3,7 +3,7 @@
 import os
 import shutil
 import zipfile
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # ----- 硬盘局部区域文件夹压缩 ----- #
 
@@ -530,3 +530,38 @@ def update_commercial2rar_files(disk_char: str):
     find_and_compress_folders(source_path, rar_exe_path)
     delete_matching_folders(source_path)
     move_commercial2rar_files(source_path, target_path)
+
+
+# --------- 移动Downloads近三天文件至Daily Notice --------- #
+
+def move_recent_files(src_dir, dst_dir, n_days):
+    """
+    将源目录中近 days 天内修改的文件移动到目标目录
+
+    参数:
+        src_dir (str): 源目录路径
+        dst_dir (str): 目标目录路径
+        days (int): 距今天数，默认3
+    """
+    # 确保目标目录存在
+    os.makedirs(dst_dir, exist_ok=True)
+
+    # 获取时间阈值
+    now = datetime.now()
+    cutoff_time = now - timedelta(days=n_days)
+
+    moved_files = []
+
+    # 遍历源目录
+    for filename in os.listdir(src_dir):
+        file_path = os.path.join(src_dir, filename)
+
+        if os.path.isfile(file_path):
+            mtime = datetime.fromtimestamp(os.path.getmtime(file_path))
+            if mtime >= cutoff_time:
+                dst_path = os.path.join(dst_dir, filename)
+                shutil.move(file_path, dst_path)
+                moved_files.append((filename, dst_path))
+
+    return moved_files
+

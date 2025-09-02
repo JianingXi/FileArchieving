@@ -1,12 +1,23 @@
 from DiskUpdateDict.FileNameAsDate import rename_date
 from DiskUpdateDict.UpdateShortcut import update_shortcut_folders, check_and_delete_if_empty
-from DiskUpdateDict.DiskUpdateFunc import compress_and_remove_folders, update_commercial2rar_files
+from DiskUpdateDict.DiskUpdateFunc import compress_and_remove_folders, update_commercial2rar_files, move_recent_files
 from DiskUpdateDict.html2pdf import convert_html_files_in_directory
 
 from rename_space import rename_files_and_folders
 
 disk_char = "E:"
 
+
+
+
+
+
+# --------- 移动Downloads近n_days天文件至Daily Notice --------- #
+src = r"C:\Users\xijia\Downloads"
+dst = r"C:\MyDocument\ToDoList\D20_ToDailyNotice"
+moved = move_recent_files(src, dst, n_days=5)
+for f, path in moved:
+    print(f"已移动: {f} -> {path}")
 
 
 
@@ -23,17 +34,20 @@ convert_html_files_in_directory(basedir)
 compress_and_remove_folders(basedir)
 rename_files_and_folders(basedir)
 
-basedir = r'C:\MyDocument\ToDoList\D20_Done'
-rename_date(basedir)
-rename_files_and_folders(basedir)
+for i_loop in range(10):
+    basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk'
+    rename_date(basedir)
+    rename_files_and_folders(basedir)
+
 basedir = r'C:\MyDocument\ToDoList\D20_Z_ToEvernote'
 rename_date(basedir)
 convert_html_files_in_directory(basedir)
 rename_files_and_folders(basedir)
-basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk'
-rename_date(basedir)
-rename_files_and_folders(basedir)
 
+basedir = r'C:\MyDocument\ToDoList\D20_Done'
+rename_date(basedir)
+convert_html_files_in_directory(basedir)
+rename_files_and_folders(basedir)
 
 
 # Paper
@@ -52,18 +66,18 @@ rename_files_and_folders(basedir)
 
 
 
+
 # basedir = r'D:\Alpha\J机智\工作业务\Y2025'
 """
 rename_date(basedir)
 rename_files_and_folders(basedir)
 """
 
+
 # 删除超星学习通的临时文件
 cx_folder = r"D:\cxdownload"
 cx_folder = cx_folder.replace("D:", disk_char)
 # check_and_delete_if_empty(cx_folder)
-
-
 
 
 # 硬盘位置确定与硬盘快捷方式更新
@@ -72,6 +86,7 @@ cx_folder = cx_folder.replace("D:", disk_char)
 
 # 商业报告参考模板备份
 # update_commercial2rar_files(disk_char)
+
 
 print('done!')
 
