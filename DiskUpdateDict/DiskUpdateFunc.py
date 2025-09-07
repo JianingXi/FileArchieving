@@ -534,14 +534,22 @@ def update_commercial2rar_files(disk_char: str):
 
 # --------- 移动Downloads近三天文件至Daily Notice --------- #
 
-def move_recent_files(src_dir, dst_dir, n_days):
+
+import os
+import shutil
+from datetime import datetime, timedelta
+
+
+def move_recent_items(src_dir, dst_dir, n_days=3):
     """
-    将源目录中近 days 天内修改的文件移动到目标目录
+    递归地将源目录中近n_days天内修改的文件和文件夹(包括其内容)移动到目标目录
 
     参数:
         src_dir (str): 源目录路径
         dst_dir (str): 目标目录路径
-        days (int): 距今天数，默认3
+        n_days (int): 距今天数，默认3
+    返回:
+        list: 移动的项目信息列表，每个元素为(名称, 目标路径)
     """
     # 确保目标目录存在
     os.makedirs(dst_dir, exist_ok=True)
@@ -550,18 +558,29 @@ def move_recent_files(src_dir, dst_dir, n_days):
     now = datetime.now()
     cutoff_time = now - timedelta(days=n_days)
 
-    moved_files = []
+    moved_items = []
 
     # 遍历源目录
-    for filename in os.listdir(src_dir):
-        file_path = os.path.join(src_dir, filename)
+    for item in os.listdir(src_dir):
+        item_path = os.path.join(src_dir, item)
+        dst_path = os.path.join(dst_dir, item)
 
-        if os.path.isfile(file_path):
-            mtime = datetime.fromtimestamp(os.path.getmtime(file_path))
-            if mtime >= cutoff_time:
-                dst_path = os.path.join(dst_dir, filename)
-                shutil.move(file_path, dst_path)
-                moved_files.append((filename, dst_path))
+        # 获取最后修改时间
+        mtime = datetime.fromtimestamp(os.path.getmtime(item_path))
 
-    return moved_files
+        if mtime >= cutoff_time:
+            # 移动项目
+            shutil.move(item_path, dst_path)
+
+            # 只记录名称和目标路径
+            moved_items.append((item, dst_path))
+
+            # 如果是文件夹，递归处理其内容
+            if os.path.isdir(dst_path):
+                for root, dirs, files in os.walk(dst_path):
+                    for name in files + dirs:
+                        full_path = os.path.join(root, name)
+                        moved_items.append((name, full_path))
+
+    return moved_items
 

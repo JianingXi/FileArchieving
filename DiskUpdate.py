@@ -1,6 +1,6 @@
 from DiskUpdateDict.FileNameAsDate import rename_date
 from DiskUpdateDict.UpdateShortcut import update_shortcut_folders, check_and_delete_if_empty
-from DiskUpdateDict.DiskUpdateFunc import compress_and_remove_folders, update_commercial2rar_files, move_recent_files
+from DiskUpdateDict.DiskUpdateFunc import compress_and_remove_folders, update_commercial2rar_files, move_recent_items
 from DiskUpdateDict.html2pdf import convert_html_files_in_directory
 
 from rename_space import rename_files_and_folders
@@ -12,15 +12,12 @@ disk_char = "E:"
 # --------- 移动Downloads近n_days天文件至Daily Notice --------- #
 src = r"C:\Users\xijia\Downloads"
 dst = r"C:\MyDocument\ToDoList\D20_ToDailyNotice"
-moved = move_recent_files(src, dst, n_days=5)
+moved = move_recent_items(src, dst, n_days=3)
 for f, path in moved:
-    print(f"已移动: {f} -> {path}")
+    print(f"移动: {f} 到 {path}")
 
 
-
-
-
-for i_loop in range(10):
+for i_loop in range(5):
     basedir = r'C:\MyDocument\ToDoList\D20_ToDailyNotice'
     rename_date(basedir)
     convert_html_files_in_directory(basedir)
@@ -62,6 +59,10 @@ for i_loop in range(10):
     rename_date(basedir)
     rename_files_and_folders(basedir)
 
+    # basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20250813_案例征集_第一届全国人工智能课程教学案例评选0910\A03_论文'
+    rename_date(basedir)
+    rename_files_and_folders(basedir)
+
 
 
 
@@ -80,7 +81,8 @@ cx_folder = cx_folder.replace("D:", disk_char)
 
 
 # 硬盘位置确定与硬盘快捷方式更新
-# update_shortcut_folders(disk_char)
+year_str = "2025"
+# update_shortcut_folders(disk_char, year_str)
 
 
 # 商业报告参考模板备份

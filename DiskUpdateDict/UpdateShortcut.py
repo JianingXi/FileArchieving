@@ -126,7 +126,7 @@ def check_and_delete_if_empty(directory):
 
 
 # 使用示例
-def update_shortcut_folders(disk_char: str):
+def update_shortcut_folders(disk_char: str, year_str: str):
     # disk_char = "D:"
 
     # 清除失效的旧有快捷方式
@@ -192,7 +192,7 @@ def update_shortcut_folders(disk_char: str):
 
 
     # 确保日常事务文件夹的目录齐全
-    base_directory = r"D:\Alpha\StoreLatestYears\Store2024"
+    base_directory = r"D:\Alpha\StoreLatestYears\Store" + year_str
     base_directory = base_directory.replace("D:", disk_char)
     folder_names_vec = [
         "A项目_科研与教改项目_A01_科研项目申请评议",
@@ -211,6 +211,7 @@ def update_shortcut_folders(disk_char: str):
         "B教学_教学与人才培养_B03_本科生毕设",
         "B教学_教学与人才培养_B05_本科生评审",
         "B教学_教学与人才培养_B06_本科生招生",
+        "B教学_教学与人才培养_B07_本科生就业",
         "B教学_教学与人才培养_B10_本科班主任",
         "B教学_教学与人才培养_B11_本科生导师",
         "B教学_教学与人才培养_B21_教学会议参与",

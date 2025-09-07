@@ -45,11 +45,19 @@ def move_files(src_folder, base_dest, year, sub_path):
         except Exception as e:
             print(f"移动失败: {src_item}, 错误: {e}")
 
+
+
+
+
+
 if __name__ == "__main__":
+    disk_char = "E:"
+    year = "2025"  # 可以改
+
     src = r"C:\MyPython\FileArchieving\DoneFileArchived"
     
-    base_dest = r"E:\Alpha\StoreLatestYears"
-    year = "2025"   # 可以改
+    base_dest = r"D:\Alpha\StoreLatestYears"
+    base_dest = base_dest.replace("D:", disk_char)
     sub_path = r"M02广医事务性工作"
 
     move_files(src, base_dest, year, sub_path)
