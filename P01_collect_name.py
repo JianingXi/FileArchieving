@@ -167,16 +167,19 @@ def combine_yearly_pkl_and_add_labels(years, target_categories, save_folder, fin
 if __name__ == "__main__":
     # 每年的目录
 
-    """
-        '2022': [r'E:\Alpha\StoreLatestYears\Store2022\M02广医事务性工作'],
-        '2023': [r'E:\Alpha\StoreLatestYears\Store2023\M02广医事务性工作'],
-        '2024': [r'E:\Alpha\StoreLatestYears\Store2024\M02广医事务性工作'],
-    """
+    disk_char = "D:"
 
+    #     '2022': [r'D:\Alpha\StoreLatestYears\Store2022\M02广医事务性工作'],
+    #     '2023': [r'D:\Alpha\StoreLatestYears\Store2023\M02广医事务性工作'],
+    #     '2024': [r'D:\Alpha\StoreLatestYears\Store2024\M02广医事务性工作'],
 
     directories_by_year = {
-        '2025': [r'E:\Alpha\StoreLatestYears\Store2025\M02广医事务性工作']
+        '2025': [r'D:\Alpha\StoreLatestYears\Store2025\M02广医事务性工作']
     }
+
+    # 遍历字典，逐一替换路径中的盘符
+    for year, paths in directories_by_year.items():
+        directories_by_year[year] = [p.replace("D:", disk_char) for p in paths]
 
     # 目标分类列表
     target_categories = [

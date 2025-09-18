@@ -53,5 +53,5 @@ def rename_files_and_folders(directory):
     rename_path(directory)
 
 if __name__ == "__main__":
-    target_directory = r'C:\MyDocument\教材撰写\科学社专用MathType6点9以下'  # 修改为你想处理的路径
+    target_directory = r'C:\以下'  # 修改为你想处理的路径
     rename_files_and_folders(target_directory)

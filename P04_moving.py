@@ -51,8 +51,10 @@ def move_files(src_folder, base_dest, year, sub_path):
 
 
 if __name__ == "__main__":
-    disk_char = "E:"
-    year = "2025"  # 可以改
+    disk_char = "D:"
+    year = "2025"
+
+
 
     src = r"C:\MyPython\FileArchieving\DoneFileArchived"
     
