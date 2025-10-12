@@ -62,12 +62,18 @@ for i_loop in range(5):
     basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250916_黄颂论文'
     rename_date(basedir)
     rename_files_and_folders(basedir)
+    basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250924_陈子翔论文'
+    rename_date(basedir)
+    rename_files_and_folders(basedir)
 
-    # basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20250813_案例征集_第一届全国人工智能课程教学案例评选0910\A03_论文'
-    #rename_date(basedir)
-    #rename_files_and_folders(basedir)
+    basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20251010_曾振华论文'
+    rename_date(basedir)
+    rename_files_and_folders(basedir)
 
 
+    basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20250929_人工智能教育大会会议_陕西西安'
+    rename_date(basedir)
+    rename_files_and_folders(basedir)
 
 
 
@@ -93,7 +99,7 @@ year_str = "2025"
 
 
 # 商业报告参考模板备份
-update_commercial2rar_files(disk_char)
+# update_commercial2rar_files(disk_char)
 
 
 print('done!')
