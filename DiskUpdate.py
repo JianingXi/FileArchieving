@@ -7,7 +7,7 @@ from rename_space import rename_files_and_folders
 
 
 disk_char = "D:"
-
+jizhi = False
 
 # --------- 移动Downloads近n_days天文件至Daily Notice --------- #
 src = r"C:\Users\xijia\Downloads"
@@ -44,24 +44,31 @@ for i_loop in range(5):
     basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20241214_黄思敏论文'
     rename_date(basedir)
     rename_files_and_folders(basedir)
+
     basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20241219_余宇论文'
     rename_date(basedir)
     rename_files_and_folders(basedir)
+
     basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250114_孔元元论文'
     rename_date(basedir)
     rename_files_and_folders(basedir)
+
     basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250607_梁钲禧论文'
     rename_date(basedir)
     rename_files_and_folders(basedir)
+
     basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250910_冯景辉论文2'
     rename_date(basedir)
     rename_files_and_folders(basedir)
+
     basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250901_中医院学生论文'
     rename_date(basedir)
     rename_files_and_folders(basedir)
+
     basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250916_黄颂论文'
     rename_date(basedir)
     rename_files_and_folders(basedir)
+
     basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250924_陈子翔论文'
     rename_date(basedir)
     rename_files_and_folders(basedir)
@@ -70,17 +77,15 @@ for i_loop in range(5):
     rename_date(basedir)
     rename_files_and_folders(basedir)
 
-
-    basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20250929_人工智能教育大会会议_陕西西安'
+    basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk\D20251020_智能医学工程专业开设的事情'
     rename_date(basedir)
     rename_files_and_folders(basedir)
 
-
-
-    #basedir = r'E:\Alpha\J机智\工作业务\Y2025'
-    #basedir = basedir.replace("D:", disk_char)
-    #rename_date(basedir)
-    #rename_files_and_folders(basedir)
+    if jizhi:
+        basedir = r'E:\Alpha\J机智\工作业务\Y2025'
+        basedir = basedir.replace("D:", disk_char)
+        rename_date(basedir)
+        rename_files_and_folders(basedir)
 
 # end of loop
 
@@ -99,7 +104,7 @@ year_str = "2025"
 
 
 # 商业报告参考模板备份
-# update_commercial2rar_files(disk_char)
+update_commercial2rar_files(disk_char)
 
 
 print('done!')

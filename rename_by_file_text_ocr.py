@@ -279,5 +279,5 @@ def rename_files_with_keywords(root_dir: str):
 
 # 调用示例
 if __name__ == "__main__":
-    ROOT_DIR = r"C:\MyDocument\ToDoList\D20_ToDailyNotice"
+    ROOT_DIR = r"C:\Users\xijia\Desktop\新建文件夹"
     rename_files_with_keywords(ROOT_DIR)
