@@ -520,10 +520,10 @@ def move_commercial2rar_files(source_path, target_path):
                 print(f"Failed to move {rar_file}: {e}")
 
 
-def update_commercial2rar_files(disk_char: str):
+def update_commercial2rar_files(disk_char: str, source_path: str):
     # disk_char = "D:"
 
-    source_path = r'C:\MyDocument\ToDoList\D20_ToHardDisk'
+    # source_path = r'C:\MyDocument\ToDoList\D20_ToHardDisk'
     target_path = r'D:\Alpha\StoreLatestYears\Store2025\B教学_教学与人才培养_A03_学生竞赛\创业计划书外界参考模板'
     target_path = target_path.replace("D:", disk_char)
 

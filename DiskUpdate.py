@@ -7,7 +7,7 @@ from rename_space import rename_files_and_folders
 
 
 disk_char = "D:"
-hard_disk_in = False
+hard_disk_in = False   # True False
 
 # --------- 移动Downloads近n_days天文件至Daily Notice --------- #
 src = r"C:\Users\xijia\Downloads"
@@ -17,11 +17,11 @@ for f, path in moved:
     print(f"移动: {f} 到 {path}")
 
 
-for i_loop in range(3):
+for i_loop in range(1):
     basedir = r'C:\MyDocument\ToDoList\D20_ToDailyNotice'
     rename_date(basedir)
     convert_html_files_in_directory(basedir)
-    compress_and_remove_folders(basedir)
+    # compress_and_remove_folders(basedir)
     rename_files_and_folders(basedir)
 
     basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk'
@@ -61,7 +61,7 @@ for i_loop in range(3):
     rename_date(basedir)
     rename_files_and_folders(basedir)
 
-    basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20250901_中医院学生论文'
+    # basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk\D20251128_广医_省青教赛名师创新工作室申报'
     rename_date(basedir)
     rename_files_and_folders(basedir)
 
@@ -77,7 +77,11 @@ for i_loop in range(3):
     rename_date(basedir)
     rename_files_and_folders(basedir)
 
-    basedir = r'C:\MyDocument\ToDoList\D20_DoingPlatform\D20_论文\D20251104_李敏仪25本'
+    basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk\D20_腾讯会议纪要\NSFC培训'
+    rename_date(basedir)
+    rename_files_and_folders(basedir)
+
+    basedir = r'C:\MyDocument\ToDoList\D20_ToHardDisk\D20_腾讯会议纪要\学术会议'
     rename_date(basedir)
     rename_files_and_folders(basedir)
 
@@ -112,26 +116,19 @@ for i_loop in range(3):
 
 
 
-
-
-
 # 硬盘位置确定与硬盘快捷方式更新
-year_str = "2025"
+year_str = "2024"
 # update_shortcut_folders(disk_char, year_str)
 
-
-
-
-
 if hard_disk_in:
+
     # 删除超星学习通的临时文件
     cx_folder = r"D:\cxdownload"
     cx_folder = cx_folder.replace("D:", disk_char)
     check_and_delete_if_empty(cx_folder)
 
-
     # 商业报告参考模板备份
-    update_commercial2rar_files(disk_char)
+    update_commercial2rar_files(disk_char, r'C:\MyDocument\ToDoList\D20_ToDailyNotice')
 
 
 print('done!')

@@ -6,7 +6,6 @@ import sys
 import zipfile
 import rarfile
 import pandas as pd
-import nltk
 import numpy as np
 from docx import Document
 from pptx import Presentation
